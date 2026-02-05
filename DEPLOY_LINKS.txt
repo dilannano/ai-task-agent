@@ -1,0 +1,182 @@
+╔══════════════════════════════════════════════════════════════╗
+║                                                              ║
+║     🚀 AI TASK AGENT - ONE-CLICK DEPLOYMENT LINKS           ║
+║                                                              ║
+╚══════════════════════════════════════════════════════════════╝
+
+📦 GITHUB REPOSITORY:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔗 https://github.com/dilannano/ai-task-agent
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🚂 RAILWAY (RECOMMENDED - EASIEST!)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+One-Click Deploy:
+🔗 https://railway.app/template/new?template=https://github.com/dilannano/ai-task-agent
+
+Or click the button in the README!
+
+After Deploy:
+1. Click on your service in Railway dashboard
+2. Go to "Variables" tab
+3. Add: OPENAI_API_KEY = your_key_here
+4. Your app will auto-deploy!
+5. Get your URL from Railway dashboard
+
+✅ Free tier: $5 credit/month
+✅ Auto-deploys on git push
+✅ Zero configuration needed
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎨 RENDER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Deploy Link:
+🔗 https://render.com/deploy?repo=https://github.com/dilannano/ai-task-agent
+
+Steps:
+1. Click the link above
+2. Connect your GitHub account
+3. Select the repository
+4. Add OPENAI_API_KEY in environment variables
+5. Click "Create Web Service"
+6. Done! Get your URL from Render dashboard
+
+✅ Free tier: 750 hours/month
+✅ Always-on option
+✅ Free SSL certificates
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✈️ FLY.IO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Terminal Deploy:
+
+1. Install Fly CLI:
+   curl -L https://fly.io/install.sh | sh
+
+2. Login:
+   fly auth login
+
+3. Clone and deploy:
+   git clone https://github.com/dilannano/ai-task-agent.git
+   cd ai-task-agent
+   fly launch
+
+4. Set secret:
+   fly secrets set OPENAI_API_KEY=your_key_here
+
+5. Deploy:
+   fly deploy
+
+Your URL: https://your-app-name.fly.dev
+
+✅ Edge deployment (fast globally)
+✅ Free tier: 3 VMs
+✅ Excellent for low latency
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🐳 DOCKER (Deploy Anywhere)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Clone and Build:
+
+git clone https://github.com/dilannano/ai-task-agent.git
+cd ai-task-agent
+docker build -t ai-task-agent .
+docker run -p 8000:8000 -e OPENAI_API_KEY=your_key ai-task-agent
+
+Then deploy to:
+- DigitalOcean App Platform
+- Google Cloud Run
+- Azure Container Apps
+- AWS ECS/Fargate
+- Any Docker host
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📱 QUICK DEMO (Without Deploying)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Want to try it locally first?
+
+git clone https://github.com/dilannano/ai-task-agent.git
+cd ai-task-agent
+./setup.sh
+# Add your API key to .env
+python main.py
+
+Visit: http://localhost:8000/docs
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 RECOMMENDED FLOW
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+For Fastest Demo:
+→ Use Railway one-click deploy
+→ Takes < 2 minutes
+→ Free tier available
+
+For Production:
+→ Railway (easy scaling)
+→ Fly.io (global edge)
+→ Render (always-on free tier)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📖 AFTER DEPLOYMENT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Your deployed app will have:
+
+✅ Interactive API docs: https://your-app.com/docs
+✅ Health check: https://your-app.com/health
+✅ Web UI: Open demo.html and point to your URL
+✅ CLI access: python cli.py -u https://your-app.com -i
+
+Test it:
+curl https://your-app.com/health
+
+Use it:
+curl -X POST "https://your-app.com/process" \
+  -H "Content-Type: application/json" \
+  -d '{"task": "summarize", "input_text": "Your text here"}'
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💡 TIPS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Get OpenAI API Key:
+   → https://platform.openai.com/api-keys
+   → Add credits if needed
+
+2. Monitor Usage:
+   → Check OpenAI dashboard for token usage
+   → Railway/Render dashboards for hosting metrics
+
+3. Scale Up:
+   → Upgrade plans as needed
+   → Add rate limiting for production
+   → Consider API authentication
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎊 YOU'RE ALL SET!
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Choose your platform above and deploy in minutes!
+
+Questions? Check the docs:
+→ README.md
+→ DEPLOYMENT.md
+→ /docs endpoint on your deployed app
+
+Happy deploying! 🚀
