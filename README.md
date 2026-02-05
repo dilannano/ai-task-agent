@@ -2,6 +2,14 @@
 
 A cloud-hosted AI agent that processes various tasks using LLM (Large Language Model) APIs. Built with FastAPI and designed for easy deployment on multiple cloud platforms.
 
+## 🚀 One-Click Deploy
+
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/new?template=https://github.com/dilannano/ai-task-agent)
+
+**After deploying:** Add your `OPENAI_API_KEY` in the Railway dashboard under Variables.
+
+---
+
 ## Features
 
 - 🚀 **Fast API** - Built with FastAPI for high performance
