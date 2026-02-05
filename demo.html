@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Task Agent - Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        select, textarea, input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        select:focus, textarea:focus, input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .result-box {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            display: none;
+        }
+
+        .result-box.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e1e8ed;
+        }
+
+        .result-title {
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .result-meta {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .result-content {
+            color: #333;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error {
+            background: #fee;
+            border-left-color: #f44;
+            color: #c33;
+        }
+
+        .api-url-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f0f4ff;
+            border-radius: 8px;
+            border: 1px solid #667eea;
+        }
+
+        .api-url-section input {
+            margin-top: 8px;
+        }
+
+        .examples {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .examples span {
+            display: inline-block;
+            background: #e1e8ed;
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .examples span:hover {
+            background: #667eea;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 AI Task Agent</h1>
+        <p class="subtitle">Process any task with AI - Summarize, analyze, generate, and more!</p>
+
+        <div class="api-url-section">
+            <label for="apiUrl">API URL:</label>
+            <input type="text" id="apiUrl" value="http://localhost:8000" placeholder="Enter your API URL">
+            <p style="margin-top: 8px; font-size: 13px; color: #666;">
+                For local: http://localhost:8000 | For deployed: https://your-app.railway.app
+            </p>
+        </div>
+
+        <form id="taskForm">
+            <div class="form-group">
+                <label for="task">Task Type:</label>
+                <select id="task">
+                    <option value="summarize">📝 Summarize Text</option>
+                    <option value="interview prep">💼 Interview Preparation</option>
+                    <option value="analyze">🔍 Analyze & Insights</option>
+                    <option value="translate">🌐 Translate</option>
+                    <option value="improve">✨ Improve Text</option>
+                    <option value="questions">❓ Generate Questions</option>
+                    <option value="outline">📋 Create Outline</option>
+                    <option value="custom">🎨 Custom Task</option>
+                </select>
+            </div>
+
+            <div class="form-group" id="customTaskGroup" style="display: none;">
+                <label for="customTask">Custom Task Instructions:</label>
+                <input type="text" id="customTask" placeholder="e.g., Generate 5 blog post ideas about...">
+            </div>
+
+            <div class="form-group">
+                <label for="inputText">Input Text:</label>
+                <textarea id="inputText" placeholder="Enter your text here..."></textarea>
+                <div class="examples">
+                    <strong>Try examples:</strong>
+                    <span onclick="loadExample('summarize')">Article Summary</span>
+                    <span onclick="loadExample('interview')">Interview Prep</span>
+                    <span onclick="loadExample('analyze')">Code Analysis</span>
+                </div>
+            </div>
+
+            <button type="submit">Process Task 🚀</button>
+        </form>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p style="margin-top: 10px; color: #666;">Processing your task...</p>
+        </div>
+
+        <div class="result-box" id="resultBox">
+            <div class="result-header">
+                <span class="result-title">Result</span>
+                <span class="result-meta" id="resultMeta"></span>
+            </div>
+            <div class="result-content" id="resultContent"></div>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('taskForm');
+        const taskSelect = document.getElementById('task');
+        const customTaskGroup = document.getElementById('customTaskGroup');
+        const loading = document.getElementById('loading');
+        const resultBox = document.getElementById('resultBox');
+        const resultContent = document.getElementById('resultContent');
+        const resultMeta = document.getElementById('resultMeta');
+        const apiUrlInput = document.getElementById('apiUrl');
+
+        // Show/hide custom task input
+        taskSelect.addEventListener('change', () => {
+            if (taskSelect.value === 'custom') {
+                customTaskGroup.style.display = 'block';
+            } else {
+                customTaskGroup.style.display = 'none';
+            }
+        });
+
+        // Load example data
+        function loadExample(type) {
+            const examples = {
+                summarize: {
+                    task: 'summarize',
+                    text: `Artificial Intelligence has made remarkable progress in recent years. Machine learning algorithms can now recognize images with superhuman accuracy, understand and generate human-like text, and even create art. Deep learning, powered by neural networks, has been the driving force behind many of these breakthroughs. Companies are using AI for everything from recommendation systems to autonomous vehicles. However, challenges remain in areas like explainability, bias, and ensuring AI systems are safe and beneficial for humanity.`
+                },
+                interview: {
+                    task: 'interview prep',
+                    text: `Senior Full-Stack Developer position at a growing fintech startup. Technologies: React, Node.js, PostgreSQL, AWS. Focus on building scalable payment processing systems.`
+                },
+                analyze: {
+                    task: 'analyze',
+                    text: `function calculateTotal(items) {
+    let total = 0;
+    for (let i = 0; i < items.length; i++) {
+        total = total + items[i].price * items[i].quantity;
+    }
+    return total;
+}
+
+Analyze this code for improvements and best practices.`
+                }
+            };
+
+            const example = examples[type];
+            if (example) {
+                document.getElementById('task').value = example.task;
+                document.getElementById('inputText').value = example.text;
+            }
+        }
+
+        // Handle form submission
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const task = taskSelect.value === 'custom' 
+                ? document.getElementById('customTask').value 
+                : taskSelect.value;
+            
+            const inputText = document.getElementById('inputText').value;
+            const apiUrl = apiUrlInput.value.trim();
+
+            if (!inputText.trim()) {
+                alert('Please enter some text to process!');
+                return;
+            }
+
+            if (taskSelect.value === 'custom' && !document.getElementById('customTask').value.trim()) {
+                alert('Please enter custom task instructions!');
+                return;
+            }
+
+            // Show loading
+            loading.classList.add('show');
+            resultBox.classList.remove('show');
+
+            try {
+                const response = await fetch(`${apiUrl}/process`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        task: task,
+                        input_text: inputText,
+                        max_tokens: 1000
+                    })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.detail || 'Failed to process task');
+                }
+
+                const data = await response.json();
+
+                // Display result
+                resultContent.textContent = data.result;
+                resultMeta.textContent = `${data.model_used} • ${data.tokens_used || 'N/A'} tokens • ${new Date(data.timestamp).toLocaleString()}`;
+                resultBox.classList.remove('error');
+                resultBox.classList.add('show');
+
+            } catch (error) {
+                resultContent.textContent = `Error: ${error.message}\n\nPlease check:\n• API URL is correct\n• Server is running\n• OpenAI API key is configured`;
+                resultMeta.textContent = 'Error';
+                resultBox.classList.add('error');
+                resultBox.classList.add('show');
+            } finally {
+                loading.classList.remove('show');
+            }
+        });
+
+        // Test API connection on load
+        window.addEventListener('load', async () => {
+            try {
+                const apiUrl = apiUrlInput.value.trim();
+                const response = await fetch(`${apiUrl}/health`);
+                if (response.ok) {
+                    console.log('✅ Connected to API successfully');
+                }
+            } catch (error) {
+                console.log('⚠️ Could not connect to API. Make sure the server is running.');
+            }
+        });
+    </script>
+</body>
+</html>

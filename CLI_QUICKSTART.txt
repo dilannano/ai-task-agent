@@ -1,0 +1,155 @@
+╔══════════════════════════════════════════════════════════════╗
+║                                                              ║
+║           🖥️  AI TASK AGENT - CLI QUICK START              ║
+║                                                              ║
+╚══════════════════════════════════════════════════════════════╝
+
+✨ THREE WAYS TO USE IT:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1️⃣  SIMPLE COMMAND (Recommended!)
+   ./ai <task> <text>
+   
+2️⃣  PYTHON CLI
+   python cli.py <task> <text>
+   
+3️⃣  INTERACTIVE MODE
+   ./ai -i
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🚀 QUICK EXAMPLES:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# List available tasks
+./ai --list
+
+# Summarize text
+./ai summarize "Your long text here..."
+
+# Interview prep
+./ai "interview prep" "Senior Python Developer"
+
+# Custom task
+./ai "Generate 5 blog ideas about" "AI and automation"
+
+# Read from file
+cat article.txt | ./ai summarize -
+
+# Interactive mode
+./ai -i
+
+# Verbose output (shows tokens used)
+./ai -v summarize "Your text"
+
+# Use GPT-4
+./ai -m gpt-4 summarize "Your text"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 AVAILABLE TASKS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✓ summarize       - Summarize long text
+✓ interview prep  - Generate interview tips
+✓ analyze         - Analyze and provide insights
+✓ translate       - Translate text
+✓ improve         - Improve writing
+✓ questions       - Generate questions
+✓ outline         - Create outlines
+✓ CUSTOM          - Use any instruction you want!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💡 PRACTICAL USE CASES:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📝 For Writing:
+   ./ai improve "$(cat draft.txt)"
+   ./ai outline "Article about climate change"
+
+💻 For Coding:
+   ./ai analyze "$(cat app.py)"
+   ./ai "Explain this error" "$(cat error.log)"
+
+📚 For Learning:
+   ./ai questions "Python programming basics"
+   ./ai summarize "$(cat lecture-notes.txt)"
+
+💼 For Work:
+   ./ai summarize "$(cat meeting-notes.txt)"
+   ./ai "Generate action items from" "$(cat notes.txt)"
+
+🎓 For Job Hunting:
+   ./ai "interview prep" "Full-stack developer at startup"
+   ./ai improve "$(cat cover-letter.txt)"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔧 ADVANCED OPTIONS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+-i, --interactive     Start interactive mode
+--list               List all available tasks
+-u URL               Use different API URL
+-m MODEL             Use different model (gpt-3.5-turbo, gpt-4)
+-t NUM               Max tokens (default: 1000)
+--temperature NUM    Creativity 0-1 (default: 0.7)
+-v, --verbose        Show detailed output
+-h, --help          Show full help
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚡ CREATE AN ALIAS (Optional):
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Add to ~/.zshrc:
+   alias ai='/Users/dilannano/Downloads/ai-task-agent/ai'
+
+Then use anywhere:
+   ai summarize "Your text"
+   ai -i
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 PIPING & CHAINING:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# Pipe from curl
+curl -s example.com/article | ./ai summarize -
+
+# Pipe from git
+git log --oneline -20 | ./ai summarize -
+
+# Use in scripts
+for file in *.txt; do
+    ./ai summarize "$(cat $file)" > "$file.summary"
+done
+
+# Analyze all Python files
+cat *.py | ./ai analyze -
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ MAKE SURE SERVER IS RUNNING:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Terminal 1:
+   python main.py
+
+Terminal 2:
+   ./ai summarize "Your text"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📖 MORE INFO:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Full Guide:       cat CLI_GUIDE.md
+Help:            ./ai --help
+Interactive:     ./ai -i
+Server Health:   curl localhost:8000/health
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Happy tasking! 🚀✨
